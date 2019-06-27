@@ -6,21 +6,25 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Posts;
 use App\Libs\LogFile;
+
 class PostController extends Controller
 {
-    public function create(Request $request) {
-        LogFile::writeLog('creatPost',json_encode($request->all()));
+    public function create(Request $request)
+    {
+        LogFile::writeLog('creatPost', json_encode($request->all()));
         $validator = Validator::make($request->all(), [
+            'post_id' => 'required|numeric',
             'author_id' => 'required|numeric',
             'title' => 'required',
             'post_type' => 'required',
             'post_slug' => 'required',
             'post_status' => 'required'
         ]);
-        if($validator->fails()){
-            return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));            
-        } 
+        if ($validator->fails()) {
+            return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
+        }
         $post = new Posts;
+        $post->post_id = $request->post_id;
         $post->author_id = $request->author_id;
         $post->content = $request->content;
         $post->title = $request->title;
@@ -31,6 +35,12 @@ class PostController extends Controller
         $post->menu_order = $request->menu_order;
         $post->save();
 
-        return $this->successResponse([], "Create post successfully");  
+        return $this->successResponse([], "Create post successfully");
+    }
+
+    public function getProduct()
+    {
+        $products = Posts::where('post_type', 'product')->get();
+        return $this->successResponse($products, 'get all products successfully');
     }
 }

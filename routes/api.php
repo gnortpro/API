@@ -19,9 +19,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 
-Route::middleware('auth:api')->group(function () {
-    
-});
+Route::middleware('auth:api')->group(function () { });
 // For wordpress
 Route::post('createPost', 'PostController@create');
+//For Nuxt
+Route::get('getProduct', 'PostController@getProduct');
 Route::post('testing', 'TestController@index');
