@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Posts;
+use App\Libs\LogFile;
 class PostController extends Controller
 {
     public function create(Request $request) {
