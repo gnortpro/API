@@ -24,3 +24,4 @@ Route::middleware('auth:api')->group(function () {
 });
 // For wordpress
 Route::post('createPost', 'PostController@create');
+Route::post('testing', 'TestController@index');
