@@ -13,7 +13,10 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'author_id' => 'required|numeric',
             'content' => 'required',
-            'title' => 'required'
+            'title' => 'required',
+            'post_type' => 'required',
+            'post_slug' => 'required',
+            'post_status' => 'required'
         ]);
         if($validator->fails()){
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));            
