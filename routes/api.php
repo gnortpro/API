@@ -23,3 +23,4 @@ Route::middleware('auth:api')->group(function () {
     
 });
 
+Route::post('createPost', 'PostController@create');
