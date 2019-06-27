@@ -12,7 +12,6 @@ class PostController extends Controller
         LogFile::writeLog('creatPost',json_encode($request->all()));
         $validator = Validator::make($request->all(), [
             'author_id' => 'required|numeric',
-            'content' => 'required',
             'title' => 'required',
             'post_type' => 'required',
             'post_slug' => 'required',
