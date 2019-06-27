@@ -23,8 +23,12 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->title = $request->title;
         $post->thumbnail = $request->thumbnail;
+        $post->post_type = $request->post_type;
+        $post->post_status = $request->post_status;
+        $post->post_slug = $request->post_slug;
+        $post->menu_order = $request->menu_order;
         $post->save();
-        
+
         return $this->successResponse([], "Create post successfully");  
     }
 }
