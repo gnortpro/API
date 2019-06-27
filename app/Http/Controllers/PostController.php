@@ -23,6 +23,10 @@ class PostController extends Controller
         if ($validator->fails()) {
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
         }
+        if (Posts::where('post_id', $request->post_id)->exists()) {
+            return $this->errorResponse(self::ERROR_BAD_REQUEST, [], 'this post exist');
+        }
+
         $post = new Posts;
         $post->post_id = $request->post_id;
         $post->author_id = $request->author_id;
