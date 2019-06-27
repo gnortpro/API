@@ -8,6 +8,7 @@ use App\Posts;
 class PostController extends Controller
 {
     public function create(Request $request) {
+        LogFile::writeLog('creatPost',json_encode($request->all()));
         $validator = Validator::make($request->all(), [
             'author_id' => 'required|numeric',
             'content' => 'required'
