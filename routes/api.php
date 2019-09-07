@@ -21,7 +21,11 @@ Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login');
 
 Route::middleware('auth:api')->group(function () {
-	Route::get('getProduct', 'PostController@getProduct');
+    Route::get('getProduct', 'PostController@getProduct');
+    
+
+    // mail
+    Route::post('post-emails', 'MailController@create');
  });
 // For wordpress
 Route::post('createPost', 'PostController@create');
