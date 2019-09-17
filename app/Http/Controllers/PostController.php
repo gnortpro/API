@@ -11,7 +11,7 @@ class PostController extends Controller
 {
     public function create(Request $request)
     {
-        LogFile::writeLog('creatPost', json_encode($request->all()));
+        
         $validator = Validator::make($request->all(), [
             'post_id' => 'required|numeric',
             'author_id' => 'required|numeric',
@@ -24,6 +24,7 @@ class PostController extends Controller
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
         }
         if (Posts::where('post_id', $request->post_id)->exists()) {
+        LogFile::writeLog('updatePost', json_encode($request->all()));
             Posts::where('post_id', $request->post_id)
             ->update(['content' => $request->content, 
             'title' => $request->title, 
@@ -36,7 +37,7 @@ class PostController extends Controller
             return $this->successResponse([], "Update post successfully");
 
         }
-
+        LogFile::writeLog('creatPost', json_encode($request->all()));
         $post = new Posts;
         $post->post_id = $request->post_id; // wordpress post id
         $post->author_id = $request->author_id;
