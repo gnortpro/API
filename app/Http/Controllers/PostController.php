@@ -15,6 +15,7 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'post_id' => 'required|numeric',
             'author_id' => 'required|numeric',
+            'category' => 'required|string',
             'title' => 'string|required',
             'post_type' => 'string|required',
             'post_slug' => 'string|required',
@@ -32,12 +33,13 @@ class PostController extends Controller
             'post_type' => $request->post_type, 
             'post_status' => $request->post_status, 
             'post_slug' => $request->post_slug,
+            'category' => $request->category,
             'menu_order' => $request->menu_order
             ]);
             return $this->successResponse([], "Update post successfully");
 
         }
-        LogFile::writeLog('creatPost', json_encode($request->all()));
+        LogFile::writeLog('createPost', json_encode($request->all()));
         $post = new Posts;
         $post->post_id = $request->post_id; // wordpress post id
         $post->author_id = $request->author_id;
@@ -47,6 +49,7 @@ class PostController extends Controller
         $post->post_type = $request->post_type; // wordpress post type
         $post->post_status = $request->post_status;
         $post->post_slug = $request->post_slug;
+        $post->category = $request->category;
         $post->menu_order = $request->menu_order;
         $post->save();
 
