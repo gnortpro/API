@@ -25,8 +25,8 @@ class CategoryController extends Controller
             LogFile::writeLog('updateCategory', json_encode($request->all()));
             Posts::where('category_id', $request->category_id)
             ->update([
-            'category_name' => $request->category_name, 
-            'category_slug' => $request->category_slug, 
+            'name' => $request->category_name, 
+            'slug' => $request->category_slug, 
             ]);
             return $this->successResponse([], "Update category successfully");
 
@@ -34,8 +34,8 @@ class CategoryController extends Controller
         LogFile::writeLog('createCategory', json_encode($request->all()));
         $cate = new Category;
         $cate->category_id = $request->category_id; // wordpress post id
-        $cate->category_name = $request->category_name;
-        $cate->category_slug = $request->category_slug;
+        $cate->name = $request->category_name;
+        $cate->slug = $request->category_slug;
         $cate->save();
 
         return $this->successResponse([], "Create category successfully");
