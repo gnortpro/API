@@ -23,7 +23,7 @@ class CategoryController extends Controller
         }
         if (Category::where('category_id', $request->category_id)->exists()) {
             LogFile::writeLog('updateCategory', json_encode($request->all()));
-            Posts::where('category_id', $request->category_id)
+            Category::where('category_id', $request->category_id)
             ->update([
             'name' => $request->category_name, 
             'slug' => $request->category_slug, 
