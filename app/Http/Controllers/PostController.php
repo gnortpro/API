@@ -24,7 +24,17 @@ class PostController extends Controller
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
         }
         if (Posts::where('post_id', $request->post_id)->exists()) {
-            return $this->errorResponse(self::ERROR_BAD_REQUEST, [], 'this post exist');
+            Posts::where('post_id', $request->post_id)
+            ->update(['content' => $request->content, 
+            'title' => $request->title, 
+            'thumbnail' => $request->thumbnail, 
+            'post_type' => $request->post_type, 
+            'post_status' => $request->post_status, 
+            'post_slug' => $request->post_slug,
+            'menu_order' => $request->menu_order
+            ]);
+            return $this->successResponse([], "Update post successfully");
+
         }
 
         $post = new Posts;
