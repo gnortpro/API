@@ -15,10 +15,10 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'post_id' => 'required|numeric',
             'author_id' => 'required|numeric',
-            'title' => 'required',
-            'post_type' => 'required',
-            'post_slug' => 'required',
-            'post_status' => 'required'
+            'title' => 'string|required',
+            'post_type' => 'string|required',
+            'post_slug' => 'string|required',
+            'post_status' => 'string|required'
         ]);
         if ($validator->fails()) {
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
@@ -28,12 +28,12 @@ class PostController extends Controller
         }
 
         $post = new Posts;
-        $post->post_id = $request->post_id;
+        $post->post_id = $request->post_id; // wordpress post id
         $post->author_id = $request->author_id;
         $post->content = $request->content;
         $post->title = $request->title;
         $post->thumbnail = $request->thumbnail;
-        $post->post_type = $request->post_type;
+        $post->post_type = $request->post_type; // wordpress post type
         $post->post_status = $request->post_status;
         $post->post_slug = $request->post_slug;
         $post->menu_order = $request->menu_order;
