@@ -40,4 +40,16 @@ class CategoryController extends Controller
 
         return $this->successResponse([], "Create category successfully");
     }
+    public function delete(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'category_id' => 'required|numeric'
+        ]);
+        if ($validator->fails()) {
+            return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
+        }
+        LogFile::writeLog('deleteCategory', json_encode($request->all()));
+        Category::where('category_id', $request->category_id)->delete();
+
+        return $this->successResponse([], "Delete category successfully");
+    }
 }
