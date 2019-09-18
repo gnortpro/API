@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
  });
 // For wordpress
 Route::post('createPost', 'PostController@create');
+Route::post('deletePost', 'PostController@delete');
 Route::post('createCategory', 'CategoryController@create');
 Route::post('deleteCategory', 'CategoryController@delete');
 //For Nuxt
