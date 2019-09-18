@@ -73,7 +73,7 @@ class PostController extends Controller
     public function read(Request $request) {
         LogFile::writeLog('readPost', json_encode($request->all()));
         $validator = Validator::make($request->all(), [
-            'post_slug' => 'required|numeric'
+            'post_slug' => 'required|string'
         ]);
         if ($validator->fails()) {
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
