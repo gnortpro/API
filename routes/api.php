@@ -33,5 +33,6 @@ Route::post('updatePost', 'PostController@update');
 Route::post('createCategory', 'CategoryController@create');
 Route::post('deleteCategory', 'CategoryController@delete');
 //For Nuxt
+Route::get('readPost', 'PostController@read');
 
 Route::post('testing', 'TestController@index');

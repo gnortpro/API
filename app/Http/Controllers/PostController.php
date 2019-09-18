@@ -67,9 +67,20 @@ class PostController extends Controller
         Posts::where('post_id', $request->post_id)
         ->update(['post_status' => $request->post_status]);
 
-        return $this->successResponse([], "Trash post successfully");
+        return $this->successResponse([], "Update post successfully");
     }
     
+    public function read(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'post_id' => 'required|numeric'
+        ]);
+        if ($validator->fails()) {
+            return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
+        }
+        $post = Posts::where('post_id', $request->post_id)->get();
+
+        return $this->successResponse(['post' => $post], "Get post successfully");
+    }
 
     public function getProduct()
     {
