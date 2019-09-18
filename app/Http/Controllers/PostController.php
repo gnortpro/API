@@ -15,7 +15,6 @@ class PostController extends Controller
         $validator = Validator::make($request->all(), [
             'post_id' => 'required|numeric',
             'author_id' => 'required|numeric',
-            'category' => 'required|string',
             'title' => 'string|required',
             'post_type' => 'string|required',
             'post_slug' => 'string|required',
