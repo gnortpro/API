@@ -71,6 +71,7 @@ class PostController extends Controller
     }
     
     public function read(Request $request) {
+        LogFile::writeLog('readPost', json_encode($request->all()));
         $validator = Validator::make($request->all(), [
             'post_id' => 'required|numeric'
         ]);
