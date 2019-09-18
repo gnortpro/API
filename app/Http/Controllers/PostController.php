@@ -55,7 +55,7 @@ class PostController extends Controller
         return $this->successResponse([], "Create post successfully");
     }
 
-    public function delete(Request $request) {
+    public function update(Request $request) {
         $validator = Validator::make($request->all(), [
             'post_id' => 'required|numeric',
             'post_status' => 'required|string'
@@ -69,6 +69,7 @@ class PostController extends Controller
 
         return $this->successResponse([], "Trash post successfully");
     }
+    
 
     public function getProduct()
     {
