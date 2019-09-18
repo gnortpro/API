@@ -71,20 +71,12 @@ class PostController extends Controller
     }
     
     public function read(Request $request) {
-        LogFile::writeLog('readPost', json_encode($request->all()));
-        $validator = Validator::make($request->all(), [
-            'id' => 'required|numeric'
-        ]);
-        if ($validator->fails()) {
-            return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
-        }
         if (isset($request->post_slug)) {
             $post = Posts::where('post_slug', $request->post_slug)->first();
         } else {
             $post = Posts::all();
         }
         
-
         return $this->successResponse(['post' => $post], "Get post successfully");
     }
 
