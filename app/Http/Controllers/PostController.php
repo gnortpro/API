@@ -63,7 +63,7 @@ class PostController extends Controller
         if ($validator->fails()) {
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
         }
-        LogFile::writeLog('deletePost', json_encode($request->all()));
+        LogFile::writeLog('updatePostStatus', json_encode($request->all()));
         Posts::where('post_id', $request->post_id)
         ->update(['post_status' => $request->post_status]);
 
