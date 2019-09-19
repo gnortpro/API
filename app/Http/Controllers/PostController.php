@@ -26,9 +26,16 @@ class PostController extends Controller
         }
         if (Posts::where('post_id', $request->post_id)->exists()) {
 
-            $checkPostCate = PostCategory::where('post_id', $request->post_id)->whereNotIn('category_id', json_decode($request->category));
-            
-            LogFile::writeLog('checkPostCate', json_encode($checkPostCate));
+            foreach (json_decode($request->category) as $value) {
+                PostCategory::where('post_id', $request->post_id)->delete();
+                $post_relationship = new PostCategory;
+                $post_relationship->category_id = $value;
+                $post_relationship->post_id = $request->post_id;
+                $post_relationship->save();
+
+            }
+           
+
             LogFile::writeLog('updatePost', json_encode($request->all()));
             Posts::where('post_id', $request->post_id)
             ->update(['content' => $request->content, 
