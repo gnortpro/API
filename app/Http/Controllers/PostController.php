@@ -26,7 +26,7 @@ class PostController extends Controller
         }
         if (Posts::where('post_id', $request->post_id)->exists()) {
 
-            PostCategory::where('post_id', $request->post_id)->whereNotIn('category_id', jsons_decode($request->category))->delete();
+            PostCategory::where('post_id', $request->post_id)->whereNotIn('category_id', json_decode($request->category))->delete();
             
             LogFile::writeLog('updatePost', json_encode($request->all()));
             Posts::where('post_id', $request->post_id)
