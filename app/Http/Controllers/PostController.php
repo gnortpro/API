@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Posts;
+use App\PostCategory;
 use App\Libs\LogFile;
 
 class PostController extends Controller
@@ -52,6 +53,13 @@ class PostController extends Controller
         $post->menu_order = $request->menu_order;
         $post->save();
 
+        foreach ($request->category as $value) {
+            $post_relationship = new PostCategory;
+            $post_relationship->category_id = $value;
+            $post_relationship->post_id = $request->post_id;
+            $post_relationship->save();
+        }
+        
         return $this->successResponse([], "Create post successfully");
     }
 
