@@ -25,6 +25,9 @@ class PostController extends Controller
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
         }
         if (Posts::where('post_id', $request->post_id)->exists()) {
+
+            PostCategory::where('post_id', $request->post_id)->whereNotIn('category_id', jsons_decode($request->category))->delete();
+            
             LogFile::writeLog('updatePost', json_encode($request->all()));
             Posts::where('post_id', $request->post_id)
             ->update(['content' => $request->content, 
