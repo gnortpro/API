@@ -25,9 +25,9 @@ class PostController extends Controller
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
         }
         if (Posts::where('post_id', $request->post_id)->exists()) {
-
+            PostCategory::where('post_id', $request->post_id)->delete();
             foreach (json_decode($request->category) as $value) {
-                PostCategory::where('post_id', $request->post_id)->delete();
+                
                 $post_relationship = new PostCategory;
                 $post_relationship->category_id = $value;
                 $post_relationship->post_id = $request->post_id;
