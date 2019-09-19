@@ -80,6 +80,20 @@ class PostController extends Controller
         return $this->successResponse(['post' => $post], "Get post successfully");
     }
 
+    public function delete(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'post_id' => 'required|numeric',
+            'password' => 'required|string'
+        ]);
+        if ($validator->fails()) {
+            return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
+        }
+        LogFile::writeLog('deletePost', json_encode($request->all()));
+        Posts::where('post_id', $request->post_id)->delete();
+
+        return $this->successResponse([], "Delete post successfully");
+    }
+
     public function getProduct()
     {
         $products = Posts::where('post_type', 'product')->get();
