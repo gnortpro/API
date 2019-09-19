@@ -35,7 +35,6 @@ class PostController extends Controller
 
             }
            
-
             LogFile::writeLog('updatePost', json_encode($request->all()));
             Posts::where('post_id', $request->post_id)
             ->update(['content' => $request->content, 
@@ -108,6 +107,7 @@ class PostController extends Controller
         }
         LogFile::writeLog('deletePost', json_encode($request->all()));
         Posts::where('post_id', $request->post_id)->delete();
+        PostCategory::where('post_id', $request->post_id)->delete();
 
         return $this->successResponse([], "Delete post successfully");
     }
