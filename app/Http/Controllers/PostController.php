@@ -53,7 +53,7 @@ class PostController extends Controller
         $post->menu_order = $request->menu_order;
         $post->save();
 
-        foreach ($request->category as $value) {
+        foreach (json_decode($request->category) as $value) {
             $post_relationship = new PostCategory;
             $post_relationship->category_id = $value;
             $post_relationship->post_id = $request->post_id;
