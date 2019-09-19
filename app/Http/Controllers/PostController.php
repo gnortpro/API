@@ -82,8 +82,7 @@ class PostController extends Controller
 
     public function delete(Request $request) {
         $validator = Validator::make($request->all(), [
-            'post_id' => 'required|numeric',
-            'password' => 'required|string'
+            'post_id' => 'required|numeric'
         ]);
         if ($validator->fails()) {
             return $this->errorResponse(self::ERROR_BAD_REQUEST, [], self::getErrorMessage(self::ERROR_BAD_REQUEST));
